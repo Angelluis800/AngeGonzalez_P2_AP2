@@ -23,8 +23,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AngeGonzalez_P2_AP2Theme {
-                val navHost = rememberNavController()
-                ParcialNavHost(navHost)
+                val NavHost = rememberNavController()
+                ParcialNavHost(NavHost)
+
             }
         }
     }
