@@ -12,7 +12,7 @@ import retrofit2.Response
 interface DepositoManagerApi {
 
     @GET("api/Depositos")
-    suspend fun getDepositos(): List<DepositoDto>
+    suspend fun getDepositos(): Response<List<DepositoDto>>
 
     @GET("api/Depositos/{id}")
     suspend fun getDeposito(@Path("id") id: Int): Response<DepositoDto>
