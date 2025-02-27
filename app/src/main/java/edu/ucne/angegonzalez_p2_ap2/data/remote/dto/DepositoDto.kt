@@ -4,7 +4,7 @@ import java.util.Date
 
 data class DepositoDto(
     val idDeposito: Int,
-    val fecha: Date? = null,
+    val fecha: String,
     val idCuenta: Int,
     val concepto: String,
     val monto: Double,
