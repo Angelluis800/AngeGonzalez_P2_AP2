@@ -13,7 +13,7 @@ import javax.inject.Inject
 class DepositoRepository @Inject constructor (
     private val remoteDataSource: RemoteDataSource
 ){
-    fun getAllArticulos(): Flow<Resource<List<DepositoDto>>> = flow {
+    fun getAllDepositos(): Flow<Resource<List<DepositoDto>>> = flow {
         try {
             emit(Resource.Loading())
             val response = remoteDataSource.getDepositos()
