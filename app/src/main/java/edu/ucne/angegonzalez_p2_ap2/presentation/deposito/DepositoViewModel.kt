@@ -86,9 +86,9 @@ class DepositoViewModel @Inject constructor(
                                     it.copy(
                                         idDeposito = dto.idDeposito,
                                         fecha = dto.fecha,
-                                        idCuenta = dto.idCuenta,
+                                        idCuenta = dto.idCuenta.toString(),
                                         concepto = dto.concepto,
-                                        monto = dto.monto,
+                                        monto = dto.monto.toString(),
                                         isLoading = false
                                     )
                                 }
@@ -126,12 +126,39 @@ class DepositoViewModel @Inject constructor(
                 _uiState.update { it.copy(errorMessage = "El Concepto es obligatoria") }
                 false
             }
-            state.monto <= 0 -> {
+            state.monto <= 0.toString() -> {
                 _uiState.update { it.copy(errorMessage = "El monto debe ser mayor a 0") }
                 false
             }
             else -> true
         }
+    }
+
+    fun onCuentaChange(cuenta: String) {
+        _uiState.update {
+            val cuentaInt = cuenta.toInt()
+            it.copy(
+                idCuenta = cuenta,
+                errorMessage = when {
+                    cuentaInt <= 0 -> "Debe ingresar un valor mayor a 0"
+                    else -> null
+                }
+            )
+        }
+    }
+
+    fun onMontoChange(monto: String) {
+        _uiState.update {
+            val montoDouble = monto.toDouble()
+            it.copy(
+                monto = monto,
+                errorMessage = when {
+                    montoDouble <= 0 -> "Debe ingresar un valor mayor a 0"
+                    else -> null
+                }
+            )
+        }
+
     }
 
     fun onConceptoChange(concepto: String) {
@@ -143,12 +170,16 @@ class DepositoViewModel @Inject constructor(
         }
     }
 }
+fun getCurrentDate(): String {
+    val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+    return sdf.format(java.util.Date())
+}
 
 
 fun DepositoUiState.toEntity() = DepositoDto(
     idDeposito = this.idDeposito,
-    fecha = this.fecha,
-    idCuenta = this.idCuenta,
+    fecha = if (this.fecha.isNotBlank()) this.fecha else getCurrentDate(),
+    idCuenta = this.idCuenta.toIntOrNull() ?: 0,
     concepto = this.concepto,
-    monto = this.monto
+    monto = this.monto.toDoubleOrNull() ?: 0.0
 )

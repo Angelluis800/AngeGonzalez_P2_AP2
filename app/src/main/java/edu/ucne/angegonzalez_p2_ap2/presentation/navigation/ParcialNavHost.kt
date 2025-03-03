@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import edu.ucne.angegonzalez_p2_ap2.presentation.deposito.DepositoListScreen
+import edu.ucne.angegonzalez_p2_ap2.presentation.deposito.DepositoScreen
 
 @Composable
 fun ParcialNavHost(
@@ -24,10 +25,10 @@ fun ParcialNavHost(
         }
         composable<Screen.DepositoScreen> {
             val depositoId = it.toRoute<Screen.DepositoScreen>().depositoId
-//            DepositoScreen(
-//                depositoId = depositoId,
-//                goBackToList = { navHostController.navigateUp() }
-//            )
+            DepositoScreen(
+                depositoId = depositoId,
+                goBackToList = { navHostController.navigateUp() }
+            )
         }
     }
 }
